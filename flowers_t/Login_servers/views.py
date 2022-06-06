@@ -14,7 +14,8 @@ def login_view(request):
             if count == 0:
                 date_error = {
                     'status': '-1',
-                    'Status Code': 404
+                    'Status Code': 404,
+                    'message':'用户不存在'
                 }
                 return HttpResponse(json.dumps(date_error), content_type='application/json')
             user=User.objects.get(ID=myID)
@@ -28,13 +29,16 @@ def login_view(request):
                     'picture': user.picture,
                     'gender': user.gender,
                     'status': '1',
-                    'Status Code': 200
+                    'Status Code': 200,
+                    'message':'登录成功'
                 }
                 return HttpResponse(json.dumps(data), content_type='application/json')
             else:
                 date_error = {
+                    'ID':myID,
                     'status': '-2',
-                    'Status Code': 404
+                    'Status Code': 404,
+                    'message':'密码错误'
                 }
                 return HttpResponse(json.dumps(date_error), content_type='application/json')
         except ObjectDoesNotExist:
@@ -54,6 +58,34 @@ def updateperson_view(request):
         date = {
             'status': '1',
             'Status Code': 200
+        }
+        return HttpResponse(json.dumps(date), content_type='application/json')
+    else:
+        return HttpResponse('GET请求无效')
+
+@csrf_exempt
+def register_view(request):
+    if request.method == 'POST':
+        ID=request.POST.get('uid')
+        name=request.POST.get('name')
+        region=request.POST.get('region')
+        gender=request.POST.get('gender')
+        birthday=request.POST.get('birthday')
+        picture=request.POST.get('picture')
+        password=request.POST.get('password')
+        count = User.objects.filter(ID=ID).count()
+        if count ==1:
+            date_error = {
+                'status': '-1',
+                'Status Code': 404,
+                'message': '用户已存在'
+            }
+            return HttpResponse(json.dumps(date_error), content_type='application/json')
+        User.objects.create(ID=ID,name=name,region=region,gender=gender,birthday=birthday,password=password)
+        date = {
+            'status': '1',
+            'Status Code': 200,
+            'message': '注册成功！'
         }
         return HttpResponse(json.dumps(date), content_type='application/json')
     else:
