@@ -1,3 +1,4 @@
+
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse
 from Login_servers.models import User
@@ -5,7 +6,7 @@ import json
 # Create your views here.
 from django.views.decorators.csrf import csrf_exempt
 @csrf_exempt
-def login_view(request):
+def login_view(request):#登录
     if request.method=='POST':
         myID=request.POST.get('uid')
         mypassword=request.POST.get('password')
@@ -26,7 +27,7 @@ def login_view(request):
                     'password': user.password,
                     'region': user.region,
                     'birthday':user.birthday,
-                    'picture': user.picture,
+                    'picture':str(user.picture),
                     'gender': user.gender,
                     'status': '1',
                     'Status Code': 200,
@@ -46,7 +47,7 @@ def login_view(request):
     else:
         return HttpResponse('GET请求无效')
 @csrf_exempt
-def updateperson_view(request):
+def updateperson_view(request):#更新个人信息
     if request.method == 'POST':
         ID=request.POST.get('uid')
         name=request.POST.get('name')
@@ -62,9 +63,8 @@ def updateperson_view(request):
         return HttpResponse(json.dumps(date), content_type='application/json')
     else:
         return HttpResponse('GET请求无效')
-
 @csrf_exempt
-def register_view(request):
+def register_view(request):#注册
     if request.method == 'POST':
         ID=request.POST.get('uid')
         name=request.POST.get('name')
@@ -81,7 +81,7 @@ def register_view(request):
                 'message': '用户已存在'
             }
             return HttpResponse(json.dumps(date_error), content_type='application/json')
-        User.objects.create(ID=ID,name=name,region=region,gender=gender,birthday=birthday,password=password)
+        User.objects.create(ID=ID,name=name,region=region,gender=gender,birthday=birthday,password=password,picture=picture)
         date = {
             'status': '1',
             'Status Code': 200,
@@ -90,3 +90,12 @@ def register_view(request):
         return HttpResponse(json.dumps(date), content_type='application/json')
     else:
         return HttpResponse('GET请求无效')
+
+@csrf_exempt
+def flie_images_view(request):
+    if request.method == 'POST':
+        ID=request.POST.get('uid')
+        img = User.objects.get(ID=ID)
+        img.picture=request.FILES.get('img')
+        img.save()
+    return HttpResponse('图片上传成功!')

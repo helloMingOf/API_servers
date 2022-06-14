@@ -6,4 +6,4 @@ class article(models.Model):
     author=models.CharField(max_length=25,verbose_name='作者名字')
     time=models.CharField(max_length=25,verbose_name='发布时间')
     text=models.TextField(verbose_name='文章内容')
-    picture=models.CharField(max_length=40,verbose_name='头像路径')
+    picture=models.CharField(max_length=100,verbose_name='头像路径')
