@@ -54,7 +54,6 @@ def updateperson_view(request):#更新个人信息
         region=request.POST.get('region')
         gender=request.POST.get('gender')
         birthday=request.POST.get('birthday')
-        picture=request.POST.get('picture')
         User.objects.filter(ID=ID).update(name=name,region=region,gender=gender,birthday=birthday)
         date = {
             'status': '1',

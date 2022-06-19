@@ -14,3 +14,6 @@ from django.core.wsgi import get_wsgi_application
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'flowers_t.settings')
 
 application = get_wsgi_application()
+from mqtt import mqtt
+# 假如脚本名是：mqtt_functions
+mqtt.mqtt_run()

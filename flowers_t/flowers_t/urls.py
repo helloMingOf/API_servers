@@ -27,5 +27,6 @@ urlpatterns = [
     path('register/',User_views.register_view),
     path('picture/',User_views.flie_images_view),
     path('articles/',Aricle_views.listjson_view),
-    path('add_article/',Aricle_views.add_listjson)
+    path('add_article/',Aricle_views.add_listjson),
+    path('flower_book/',Aricle_views.listjson_bookview)
 ] + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
