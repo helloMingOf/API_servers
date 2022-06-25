@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path
 from Login_servers import views as User_views
 from Article_servers import views as Aricle_views
+from mqtt import views as mqtt_viwes
 from django.conf.urls.static import static
 from . import settings
 urlpatterns = [
@@ -28,5 +29,7 @@ urlpatterns = [
     path('picture/',User_views.flie_images_view),
     path('articles/',Aricle_views.listjson_view),
     path('add_article/',Aricle_views.add_listjson),
-    path('flower_book/',Aricle_views.listjson_bookview)
+    path('flower_book/',Aricle_views.listjson_bookview),
+    path('flower_rfid/',mqtt_viwes.listjson),
+    path('mqttpublish/',mqtt_viwes.mqttflower),
 ] + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

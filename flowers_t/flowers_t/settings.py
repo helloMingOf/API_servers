@@ -25,13 +25,15 @@ SECRET_KEY = 'django-insecure-)%jh^v)c6uwclvt82_dn(+mj#29+md_mz)h0rxfzzud#a4#nc_
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+# 隐藏右侧SimpleUI广告链接和使用分析
+SIMPLEUI_HOME_INFO = False
+SIMPLEUI_ANALYSIS = False
 
-ALLOWED_HOSTS = ["172.17.143.35"]
-
-
+ALLOWED_HOSTS = ["*"]
 # Application definition
-
-INSTALLED_APPS = [
+INSTALLED_APPS = [ 
+    'stdimage',
+    'simpleui',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -39,7 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'Login_servers',
-    'Article_servers'
+    'Article_servers',
+    'mqtt',
 ]
 
 MIDDLEWARE = [
@@ -53,7 +56,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'flowers_t.urls'
-
+SIMPLEUI_LOGO = 'http://172.17.143.35:88/json/images/2.jpg'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -108,13 +111,16 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'zh-hans'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Shanghai'
+
 
 USE_I18N = True
-
-USE_TZ = True
+ 
+USE_L10N = True
+ 
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
@@ -130,3 +136,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #图片保存路径
 MEDIA_ROOT = os.path.join(BASE_DIR,'media').replace('\\','/')
 MEDIA_URL = '/media/'
+
+

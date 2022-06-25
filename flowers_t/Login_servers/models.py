@@ -9,3 +9,9 @@ class User(models.Model):
     birthday = models.CharField(max_length=25, verbose_name='生日')
     picture = models.ImageField(upload_to='img/',verbose_name='图片路径')
     gender = models.CharField(max_length=10, verbose_name='性别')
+    class Meta:
+        db_table = ''
+        managed = True
+        verbose_name = 'APP用户信息'
+        verbose_name_plural = 'APP用户信息'
+    

@@ -8,6 +8,11 @@ class article(models.Model):
     time=models.CharField(max_length=25,verbose_name='发布时间')
     text=models.TextField(verbose_name='文章内容')
     picture=models.CharField(max_length=100,verbose_name='头像路径')
+    class Meta:
+        db_table = ''
+        managed = True
+        verbose_name = 'APP文章信息'
+        verbose_name_plural = 'APP文章信息'
 
 class flower_book1(models.Model):
     id=models.AutoField(primary_key=True,verbose_name="主键")
